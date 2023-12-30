@@ -1,7 +1,7 @@
-import { Logger, Module } from '@nestjs/common';
-import { PrismaModule } from '../prisma/prisma.module';
-import { SolarPanelController } from './solarPanel.controller';
-import { SolarPanelService } from './solarPanel.service';
+import { Logger, Module } from '@nestjs/common'
+import { PrismaModule } from '../prisma/prisma.module'
+import { SolarPanelController } from './solarPanel.controller'
+import { SolarPanelService } from './solarPanel.service'
 
 @Module({
   imports: [PrismaModule],

@@ -6,9 +6,9 @@ import {
   Param,
   Patch,
   Post,
-} from '@nestjs/common';
-import { Prisma, SolarPanel } from '@prisma/client';
-import { SolarPanelService } from './solarPanel.service';
+} from '@nestjs/common'
+import { Prisma, SolarPanel } from '@prisma/client'
+import { SolarPanelService } from './solarPanel.service'
 
 @Controller('solar-panels')
 export class SolarPanelController {
@@ -16,17 +16,17 @@ export class SolarPanelController {
 
   @Get()
   getProjects() {
-    return this.solarPanel.find({});
+    return this.solarPanel.find({})
   }
 
   @Get(':id')
   getProject(@Param('id') id: number): Promise<SolarPanel> {
-    return this.solarPanel.findById(Number(id));
+    return this.solarPanel.findById(Number(id))
   }
 
   @Get(':id/buildings')
   getSolarPanelsByBuildingId(@Param('id') id: number) {
-    return this.solarPanel.findBuildingBySolarPanelId(Number(id));
+    return this.solarPanel.findBuildingBySolarPanelId(Number(id))
   }
 
   @Post(':id')
@@ -35,7 +35,7 @@ export class SolarPanelController {
   ): Promise<SolarPanel> {
     return this.solarPanel.create({
       ...data,
-    });
+    })
   }
 
   @Patch(':id')
@@ -46,11 +46,11 @@ export class SolarPanelController {
     return this.solarPanel.update({
       where: { id: Number(id) },
       data: updateData,
-    });
+    })
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<SolarPanel> {
-    return this.solarPanel.delete({ id: Number(id) });
+    return this.solarPanel.delete({ id: Number(id) })
   }
 }

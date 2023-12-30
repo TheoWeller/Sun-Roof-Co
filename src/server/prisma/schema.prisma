@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String?
+  status      String
+  startDate   String?
+  buildings   Building[]
+  createdAt   DateTime   @default(now()) @map(name: "created_at")
+  updatedAt   DateTime   @updatedAt @map(name: "updated_at")
+}
+
+model Building {
+  id          Int                  @id @default(autoincrement())
+  name        String
+  contact     String?
+  projects    Project[]
+  solarPanels BuildingSolarPanel[]
+  address1    String?
+  address2    String?
+  city        String?
+  state       String?
+  zip         String?
+  country     String?
+  createdAt   DateTime             @default(now()) @map(name: "created_at")
+  updatedAt   DateTime             @updatedAt @map(name: "updated_at")
+}
+
+model SolarPanel {
+  id            Int                  @id @default(autoincrement())
+  name          String
+  buildings     BuildingSolarPanel[]
+  modelNumber   String
+  manufacturer  String
+  solarCellType String
+  weight        String
+  createdAt     DateTime             @default(now()) @map(name: "created_at")
+  updatedAt     DateTime             @updatedAt @map(name: "updated_at")
+}
+
+model BuildingSolarPanel {
+  buildingId      Int
+  solarPanelId    Int
+  solarPanelCount Int
+  installedAt     String
+  building        Building   @relation(fields: [buildingId], references: [id])
+  solarPanel      SolarPanel @relation(fields: [solarPanelId], references: [id])
+
+  @@id([buildingId, solarPanelId])
+}
